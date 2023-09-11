@@ -37,7 +37,7 @@ class Lab_1{
         if (y_n != 'д' || y_n != 'y') {
             System.out.println();
             for (int i = 0; i < num; i++) {
-                myArray.add((int) (1 + Math.random() * 9));
+                myArray.add((int) (-10 + Math.random() * 20));
                 System.out.print(myArray.get(i) + " ");
             }
         } else {
@@ -75,14 +75,29 @@ class Lab_1{
         }
 
         System.out.println();
-        System.out.println("макс - мин = " + (max - min));
+        //if(min >= 0) {
+            System.out.println("макс - мин = " + (max - min));
+        //} else {System.out.println("макс - мин = " + (max + min));}
     }
-    public void task_4(int pos) {
-        int sum_row = 0, sum_col = 0;
-        for(int i = 0; i < rows; i++) sum_col += myMatrix[i][pos];
-        for(int i = 0; i < columns; i++) sum_row += myMatrix[pos][i];
-        System.out.println("Сумма " + (pos+1) + " столбца: " + sum_col);
-        System.out.println("Сумма " + (pos+1) + " строки: " + sum_row);
+    public void task_4(char pos) {
+        int sum = 0;
+        if (pos == 'с') {
+            for (int i = 0; i < rows; i++) {
+                for (int j = 0; j < columns; j++) {
+                    sum += myMatrix[i][j];
+                }
+                System.out.println("Сумма " + (i + 1) + " строки: " + sum);
+                sum = 0;
+            }
+        } else if (pos == 'к') {
+            for (int i = 0; i < columns; i++) {
+                for (int j = 0; j < rows; j++) {
+                    sum += myMatrix[j][i];
+                }
+                System.out.println("Сумма " + (i + 1) + " столбцов: " + sum);
+                sum = 0;
+            }
+        } else {System.out.println("Ошибка! не верный ввод");}
     }
 }
 
@@ -107,9 +122,9 @@ public class Main {
         Lab_1 t = new Lab_1(num, rows, columns);
         t.task_1();
 
-        System.out.print("Dведите номер столбца/строки: ");
-        num = scanner.nextInt();
-        t.task_4(--num);
+        System.out.print("Введите что хотите сложить (к/с): ");
+        char  pos = scanner.next().charAt(0);;
+        t.task_4(pos);
         scanner.nextLine();
 
         for(int i = 0; i < 3; i++){
