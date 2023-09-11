@@ -138,15 +138,19 @@ public class Main {
         boolean key = true;
 
         for(int i = 0; i < 3; i++){
-            if(
-                    (filter.equals(student[i].famil)) ||
-                    (filter.equals(student[i].name)) ||
-                    (filter.equals(student[i].facult)) //||
-                   // (Integer.parseInt(filter)) == student[i].NomZach
-            ){
-                System.out.print("Нашелся (￢‿￢ ) ");
-                student[i].print();
-                key = false;
+            try {
+                if (
+                        (filter.equals(student[i].famil)) ||
+                                (filter.equals(student[i].name)) ||
+                                (filter.equals(student[i].facult)) ||
+                        (Integer.parseInt(filter)) == student[i].NomZach
+                ) {
+                    System.out.print("Нашелся (￢‿￢ ) ");
+                    student[i].print();
+                    key = false;
+                }
+            }catch (NumberFormatException nfe){
+                ;
             }
         }
         if(key) {
