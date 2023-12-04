@@ -23,12 +23,12 @@ queue<int>  sum(int ** mtrx, int n, int condition)
 
 int main()
 {
-    int m, tmp;
+    int m, tmp=0, col = 0;
     std::cin >> m;
     
     
 
-    int **mtrx = new int*[m], **mtrx2 = new int*[m];
+    int **mtrx = new int*[m], **mtrx2 = new int*[m]{0};
     for(int i = 0; i < m; i++) mtrx[i] = new int[m];
 
 
@@ -37,32 +37,34 @@ int main()
     {        
         for(int j = i; j<m; j++)
         {
-            if(mtrx[i][j] != 1)
+            //if(mtrx[i][j] != 1)
             {
                 int rez = rand()%2;
                 mtrx[i][j] = rez;
                 mtrx[j][i] = rez;
+                tmp += rez;
             }
-            tmp = j+1;
         }
     }
     
     for(int i = 0; i < m; i++) mtrx2[i] = new int[tmp]{0};
 
+
     for(int i = 0; i < m; i++)
-        for(int j = i, r = 0; j < tmp; j++)
+        for(int j = i; j < m; j++)
         {
-            if(mtrx[j][i] == 1)
+            if(mtrx[i][j] == 1)
             {
-                mtrx2[i][r] = 1;
-                mtrx2[j][r] = 1;
-                r++;
+                mtrx2[i][col] = 1;
+                mtrx2[j][col] = 1;
+                col++;
+                cout<<col<<endl;
             }
         }
 
     for(int i = 0; i<m;i++)
     {
-        for(int j = 0; j<tmp;j++)
+        for(int j = 0; j<col;j++)
         {
             cout<<"["<<mtrx2[i][j]<<"] ";
         }
