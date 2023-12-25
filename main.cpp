@@ -3,21 +3,6 @@
 
 using namespace std;
 
-int sum_max(int ** mtrx, int n, int m = 0)
-{
-    int sum = 0, max = 0, num = 0; 
-    if(m == 0) m = n;
-    for(int i=0; i<n; i++)
-    {
-        for(int j=0; j<m; j++)
-        {
-            if(i == j and mtrx[i][j] != 0) sum += 2;  
-            else sum += mtrx[i][j];
-        }
-        if(sum < max) {max = sum; num = i;}
-   }
-    return num;
-}
 
 queue<int>  sum(int ** mtrx, int n, int condition, int r = 0)
 {
@@ -28,17 +13,19 @@ queue<int>  sum(int ** mtrx, int n, int condition, int r = 0)
 
     for(int i=0; i<n; i++)
     {
+        sum = 0;
         for(int j=0; j<r; j++)
         {
             sum += mtrx[i][j];
         }
-        if(sum == condition) Q.push(i);
+        if(sum == condition) Q.push(i+1);
    }
     return Q;
 }
 
 int main()
 {
+    srand(time(NULL));
     int m, tmp=0, col = 0;
     queue<int> Que;
     cout<<"введите количество вершин (целое положительное цисло)"<<endl;
@@ -55,10 +42,13 @@ int main()
     {        
         for(int j = i; j<m; j++)
         { 
+            if(i != j)
+            {
                 int rez = rand()%2;
                 mtrx[i][j] = rez;
                 mtrx[j][i] = rez;
                 tmp += rez;
+            }
         }
     }
     
@@ -91,13 +81,15 @@ cout<<"матрица смежности"<<endl;
     if(Que.empty()) cout<<"Изолированых вершин нет"<<endl;
     else
     {
-        cout<<"Изолировыная/ые вершина/ы под №"<<endl;
+        cout<<"Изолировыная/ые вершина/ы под № ";
         while(1)
         {
             if(Que.empty()) break;
             cout<<Que.front();
             Que.pop();
+            cout<<", ";
         }
+        cout<<endl;
     }
       
     
@@ -105,16 +97,32 @@ cout<<"матрица смежности"<<endl;
     if(Que.empty()) cout<<"концевых вершин нет"<<endl;
     else
     {
-        cout<<"Изолировыная/ые вершина/ы под №"<<endl;
+        cout<<"Концевая/ые вершина/ы под № ";
         while(1)
         {
             if(Que.empty()) break;
             cout<<Que.front();
             Que.pop();
+            cout<<", ";
         }
+        cout<<endl;
     }
 
-    cout<<"Доминирующая вершина под № "<<sum_max(mtrx, m) + 1<<endl;
+    
+    Que = sum(mtrx, m, m-1); 
+    if(Que.empty()) cout<<"доминирующих вершин нет"<<endl;
+    else
+    {
+        cout<<"Доминирующая/ие вершина/ы под № ";
+        while(1)
+        {
+            if(Que.empty()) break;
+            cout<<Que.front();
+            Que.pop();
+            cout<<", ";
+        }
+        cout<<endl;
+    }
 
     cout<<"Матрица инцидентности"<<endl;
 
@@ -132,28 +140,46 @@ cout<<"матрица смежности"<<endl;
     if(Que.empty()) cout<<"Изолированых вершин нет"<<endl;
     else
     {
-        cout<<"Изолировыная/ые вершина/ы под №"<<endl;
+        cout<<"Изолировыная/ые вершина/ы под № ";
         while(1)
         {
             if(Que.empty()) break;
             cout<<Que.front();
             Que.pop();
+            cout<<", ";
         }
+        cout<<endl;
     }
 
     Que = sum(mtrx2, m, 1, col); 
     if(Que.empty()) cout<<"концевых вершин нет"<<endl;
     else
     {
-        cout<<"Концевая/ые вершина/ы под №"<<endl;
+        cout<<"Концевая/ые вершина/ы под № ";
         while(1)
         {
             if(Que.empty()) break;
             cout<<Que.front();
             Que.pop();
+            cout<<", ";
         }
+        cout<<endl;
     }
 
-    cout<<"Доминирующая вершина под № "<<sum_max(mtrx2, m, col) + 1<<endl;
+    
+    Que = sum(mtrx2, m, m-1, col); 
+    if(Que.empty()) cout<<"доминирующих вершин нет"<<endl;
+    else
+    {
+        cout<<"Доминирующая/ие вершина/ы под № ";
+        while(1)
+        {
+            if(Que.empty()) break;
+            cout<<Que.front();
+            Que.pop();
+            cout<<", ";
+        }
+        cout<<endl;
+    }
 return 0;
 }
