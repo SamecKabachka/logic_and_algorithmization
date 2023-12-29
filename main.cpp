@@ -3,6 +3,21 @@
 
 using namespace std;
 
+
+void fc (int **mtrx, int n, bool *mas, int i = 0)
+{
+    cout<<i+1;    
+    mas[i] = 1;
+        for(int j = 0; j < n; j++)
+        {
+            if(mtrx[i][j] == 1 and mas[j] != 1)
+            {
+                fc(mtrx, n, mas, j);
+            }
+        }
+    
+}
+
 int main()
 {
     int m, tmp=0, col = 0;
@@ -21,14 +36,19 @@ int main()
     {        
         for(int j = i; j<m; j++)
         { 
+            if(j != i)
+            {
                 int rez = rand()%2;
                 mtrx[i][j] = rez;
                 mtrx[j][i] = rez;
                 tmp += rez;
+            }
         }
     }
     
     for(int i = 0; i < m; i++) mtrx2[i] = new int[tmp]{0};
+
+    bool *mas = new bool[tmp]{false};
 
 
     for(int i = 0; i < m; i++)
@@ -65,6 +85,8 @@ cout<<"матрица инцидентности"<<endl;
         cout<<endl;
     }
 
-    
+    fc(mtrx, m, mas);
+    cout<<endl;
+
 return 0;
 }
