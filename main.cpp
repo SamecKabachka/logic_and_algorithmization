@@ -4,18 +4,21 @@
 using namespace std;
 
 
-void fc (int **mtrx, int n, bool *mas, int i = 0)
-{
-    cout<<i+1;    
-    mas[i] = 1;
+void fc (int **mtrx, int n, bool *mas)
+{    
+    queue <int> q;
+    mas[0] = 1;
+    q.push(1);
+    for(int i = 0; i < n; i++)
+        
         for(int j = 0; j < n; j++)
         {
-            if(mtrx[i][j] == 1 and mas[j] != 1)
+            if(mtrx[i][j] == 1 and  mas[j] != 1)
             {
-                fc(mtrx, n, mas, j);
+                ;
+                mas[j] = 1;
             }
         }
-    
 }
 
 int main()
