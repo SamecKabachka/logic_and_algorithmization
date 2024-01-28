@@ -3,6 +3,15 @@
 
 using namespace std;
 
+void printq (queue <int> *qu)
+{
+    while(!qu->empty())
+    {
+        cout<<qu->front();
+        qu->pop();
+    }
+    cout<<endl;
+}
 
 void fc (int **mtrx, int n, bool *mas)
 {    
@@ -10,15 +19,17 @@ void fc (int **mtrx, int n, bool *mas)
     mas[0] = 1;
     q.push(1);
     for(int i = 0; i < n; i++)
-        
+    {
+        printq(&q);
         for(int j = 0; j < n; j++)
         {
             if(mtrx[i][j] == 1 and  mas[j] != 1)
             {
-                ;
+                q.push(j+1);
                 mas[j] = 1;
             }
         }
+    }
 }
 
 int main()
@@ -76,7 +87,7 @@ cout<<"матрица смежности"<<endl;
         cout<<endl;
     }
  
-    
+/*    
 cout<<"матрица инцидентности"<<endl;      
     
     for(int i = 0; i<m;i++)
@@ -87,7 +98,7 @@ cout<<"матрица инцидентности"<<endl;
         }
         cout<<endl;
     }
-
+*/
     fc(mtrx, m, mas);
     cout<<endl;
 
